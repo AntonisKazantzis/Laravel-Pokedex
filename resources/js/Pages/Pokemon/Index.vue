@@ -120,65 +120,68 @@ watch(
                     Pokemons
                 </h2>
 
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <input v-model="search" type="text"
-                        class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500"
-                        placeholder="Search pokemons..." />
-                </div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-4 flex-wrap">
+                    <div>
+                        <input v-model="search" type="text"
+                            class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500"
+                            placeholder="Search pokemons..." />
 
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 my-4 sm:my-0 sm:mx-4">
-                    <select v-model="selectedType"
-                        class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
-                        <option value="" disabled selected hidden>Select a Type</option>
-                        <template v-for="(type, index) in uniqueTypes" :key="index">
-                            <option :value="type">
-                                {{ type }}
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
+                        <select v-model="selectedType"
+                            class="mt-4 sm:mt-0 sm:ml-0 md:ml-0 lg:ml-0 xl:ml-0 2xl:ml-4 ml-0 border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
+                            <option value="" disabled selected hidden>Type</option>
+                            <template v-for="(type, index) in uniqueTypes" :key="index">
+                                <option :value="type">
+                                    {{ type }}
+                                </option>
+                            </template>
+                        </select>
+
+                        <select v-model="selectedAbility"
+                            class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
+                            <option value="" disabled selected hidden>Ability</option>
+                            <template v-for="(ability, index) in uniqueAbilities" :key="index">
+                                <option :value="ability">
+                                    {{ ability }}
+                                </option>
+                            </template>
+                        </select>
+
+                        <select v-model="selectedEggGroup"
+                            class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
+                            <option value="" disabled selected hidden>Egg Group</option>
+                            <template v-for="(egg_group, index) in uniqueEggGroups" :key="index">
+                                <option :value="egg_group">
+                                    {{ egg_group }}
+                                </option>
+                            </template>
+                        </select>
+
+                        <select v-model="selectedGrowthRate"
+                            class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
+                            <option value="" disabled selected hidden>Growth Rate</option>
+                            <option v-for="(growth_rate, index) in growth_rates" :key="index" :value="growth_rate">
+                                {{ growth_rate }}
                             </option>
-                        </template>
-                    </select>
+                        </select>
+                    </div>
 
-                    <select v-model="selectedAbility"
-                        class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
-                        <option value="" disabled selected hidden>Select an Ability</option>
-                        <template v-for="(ability, index) in uniqueAbilities" :key="index">
-                            <option :value="ability">
-                                {{ ability }}
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
+                        <select v-model="selectedSort"
+                            class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
+                            <option value="" disabled selected hidden>Sorting</option>
+                            <option v-for="sort in sortOptions" :key="sort.value" :value="sort.value">
+                                {{ sort.label }}
                             </option>
-                        </template>
-                    </select>
+                        </select>
 
-                    <select v-model="selectedEggGroup"
-                        class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
-                        <option value="" disabled selected hidden>Select an Egg Group</option>
-                        <template v-for="(egg_group, index) in uniqueEggGroups" :key="index">
-                            <option :value="egg_group">
-                                {{ egg_group }}
-                            </option>
-                        </template>
-                    </select>
-
-                    <select v-model="selectedGrowthRate"
-                        class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
-                        <option value="" disabled selected hidden>Select a Growth Rate</option>
-                        <option v-for="(growth_rate, index) in growth_rates" :key="index" :value="growth_rate">
-                            {{ growth_rate }}
-                        </option>
-                    </select>
-                </div>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <select v-model="selectedSort"
-                        class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
-                        <option value="" disabled selected hidden>Select a Sorting</option>
-                        <option v-for="sort in sortOptions" :key="sort.value" :value="sort.value">
-                            {{ sort.label }}
-                        </option>
-                    </select>
-
-                    <button type="submit" :onClick="resetFilters"
-                        class="border dark:border focus:dark:border-2 hover:border-indigo-500 bg-white focus:border-2 dark:border-black dark:hover:border-indigo-500 border-white text-black rounded-md w-full md:w-32 h-12 focus:outline-none focus:border-indigo-500 focus:dark:border-indigo-500">
-                        Reset Filters
-                    </button>
+                        <button type="submit" :onClick="resetFilters"
+                            class="mt-4 sm:mt-0 sm:ml-0 md:ml-0 lg:ml-0 xl:ml-0 2xl:ml-4 ml-0 border dark:border focus:dark:border-2 hover:border-indigo-500 bg-white focus:border-2 dark:border-black dark:hover:border-indigo-500 border-white text-black rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500 focus:dark:border-indigo-500">
+                            Reset Filters
+                        </button>
+                    </div>
                 </div>
             </div>
         </template>
@@ -212,7 +215,8 @@ watch(
                                     class="relative inset-0 m-auto drop-shadow-xl z-10 w-full h-full object-contain" />
                             </div>
 
-                            <div class="relative text-[#e2e2e1] dark:text-[#e2e2e1] text-[18vw] font-[600] z-0 w-full mx-auto mt-[-40%]">
+                            <div
+                                class="relative text-[#e2e2e1] dark:text-[#e2e2e1] text-[18vw] font-[600] z-0 w-full mx-auto mt-[-40%]">
                                 #{{ pokemon.pokemon_id.toString().padStart(4, "0") }}
                             </div>
                         </Link>
@@ -282,53 +286,52 @@ watch(
 
         <div v-if="pokemons.data && pokemons.data.length" class="pt-16 border-t hidden sm:block">
             <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id"
-                class="shadow-md border-2 m-auto rounded w-[750px] h-[290px] flex p-8 mb-8">
+                class="shadow-md border-2 m-auto rounded md:w-[750px] md:h-[290px] w-[98vw] h-[38vw] flex p-8 mb-8">
                 <!-- Left half (Centered) -->
                 <div class="flex-1 mx-auto">
                     <div class="flex mb-4">
                         <div class="flex-1 relative">
                             <h6
-                                class="bg-[#343541] dark:bg-white dark:text-black text-white rounded-full z-10 w-[40px] h-[40px] flex items-center justify-center text-[13px] font-bold absolute float-left top-0 left-0">
+                                class="bg-[#343541] dark:bg-white dark:text-black text-white rounded-full z-10 w-[5vw] h-[5vw] md:w-[40px] md:h-[40px] flex items-center justify-center md:text-[13px] text-[1.7vw] font-bold absolute float-left top-0 left-0">
                                 {{ (pokemon.height / 10).toFixed(1) }}m
                             </h6>
                         </div>
                         <div class="flex-1 relative">
                             <h6
-                                class="bg-[#343541] dark:bg-white dark:text-black text-white rounded-full z-10 w-[40px] h-[40px] flex items-center justify-center text-[13px] font-bold absolute top-0 right-0">
+                                class="bg-[#343541] dark:bg-white dark:text-black text-white rounded-full z-10 w-[5vw] h-[5vw] md:w-[40px] md:h-[40px] flex items-center justify-center md:text-[13px] text-[1.7vw] font-bold absolute top-0 right-0">
                                 {{ (pokemon.weight / 10).toFixed(1) }}kg
                             </h6>
                         </div>
                     </div>
 
-                    <div>
-                        <Link :href="route('pokemons.show', {
-                            pokemon: pokemon.name,
-                        })
-                            " :active="route().current('pokemons.show')">
-                        <img :src="pokemon.sprite_1_path" class="relative drop-shadow-xl z-10 mx-auto" />
+                    <Link :href="route('pokemons.show', {
+                        pokemon: pokemon.name,
+                    })" :active="route().current('pokemons.show')" class="flex flex-col items-center">
+                        <div class="relative md:w-[100px] md:h-[100px] w-[13vw] h-[13vw]">
+                            <img :src="pokemon.sprite_1_path" class="relative drop-shadow-xl z-10 mx-auto" />
+                        </div>
 
                         <div
-                            class="relative text-[#e2e2e1] dark:text-[#e2e2e1] text-[100px] font-[600] z-0 mx-auto mt-[-125px]">
+                            class="relative text-[#e2e2e1] dark:text-[#e2e2e1] md:text-[100px] text-[13.2vw] font-[600] z-0 mx-auto md:mt-[-125px] mt-[-16.5vw]">
                             #{{ pokemon.pokemon_id.toString().padStart(4, "0") }}
                         </div>
-                        </Link>
-                    </div>
+                    </Link>
 
                     <div class="text-center mt-[-32px]">
-                        <h6 class="capitalize text-[25px] dark:text-black text-white font-bold">
+                        <h6 class="capitalize md:text-[25px] text-[3.3vw] dark:text-black text-white font-bold">
                             {{ pokemon.name }}
                         </h6>
 
-                        <div class="text-sm mb-2 dark:text-black text-white">
+                        <div class="md:text-[14px] text-[1.8vw] mb-2 dark:text-black text-white">
                             {{ pokemon.genera }}
                         </div>
 
-                        <div class="uppercase font-bold text-sm mb-2">
+                        <div class="uppercase font-bold md:text-[14px] text-[1.8vw] mb-2">
                             <span v-for="(type, index) in pokemon.types" :key="index" :class="type" class="pr-1">
                                 {{ type }}
                             </span>
                         </div>
-                        <div class="text-sm capitalize font-[400px]">
+                        <div class="md:text-[14px] text-[1.8vw] capitalize font-[400px]">
                             <span v-for="(ability, index) in pokemon.abilities" :key="index" :class="ability"
                                 class="capitalize pr-1 dark:text-black text-white">
                                 {{ ability }}
@@ -346,22 +349,22 @@ watch(
                         }" :size="28" @click="like(pokemon)" />
                     </div>
 
-                    <table class="text-[16px] capitalize ml-[-20px]" cellspacing="0">
+                    <table class="capitalize md:ml-[-20px] ml-[-4vw]" cellspacing="0">
                         <tbody v-for="(stat, index) in pokemon.stats" :key="index" class="flex">
                             <tr
-                                class="w-[145px] text-[13px] font-bold pr-[30px] flex justify-end dark:text-black text-white">
+                                class="md:w-[145px] w-[20vw] md:text-[13px] text-[1.7vw] font-bold md:pr-[30px] pr-[4vw] flex justify-end dark:text-black text-white">
                                 {{
                                     stat.name
                                 }}
                             </tr>
 
                             <td
-                                class="w-[60px] font-[500px] text-[13px] flex justify-end pr-[20px] dark:text-black text-white">
+                                class="md:w-[60px] w-[8vw] font-[500px] md:text-[13px] text-[1.7vw] flex justify-end md:pr-[20px] pr-[3vw] dark:text-black text-white">
                                 {{ stat.base_stat }}
                             </td>
 
                             <td
-                                class="w-[190px] h-[12px] mt-[3px] bg-[#e2e2e1] dark:bg-[#e2e2e1] mb-[10px] rounded-[3px] overflow-hidden">
+                                class="md:w-[190px] md:h-[12px] w-[25vw] h-[1.6vw] mt-[3px] bg-[#e2e2e1] dark:bg-[#e2e2e1] mb-[10px] rounded-[3px] overflow-hidden">
                                 <div :class="damageColor(stat.base_stat)"
                                     class="h-full transition-width duration-500 rounded-[3px]" :style="{
                                         width: `${(stat.base_stat / 200) * 100}%`,
