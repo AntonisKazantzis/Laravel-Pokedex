@@ -186,6 +186,7 @@ watch(
             </div>
         </template>
 
+        <!-- Responsive Card  -->
         <div v-if="pokemons.data && pokemons.data.length" class="pt-16 pb-8 border-t sm:hidden">
             <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id"
                 class="shadow-md border-2 m-auto rounded overflow-hidden mb-8">
@@ -284,7 +285,8 @@ watch(
             No pokemons found :/
         </p>
 
-        <div v-if="pokemons.data && pokemons.data.length" class="pt-16 border-t hidden sm:block">
+        <!-- Normal Card  -->
+        <div v-if="pokemons.data && pokemons.data.length" class="pt-16 pb-8 border-t hidden sm:block">
             <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id"
                 class="shadow-md border-2 m-auto rounded md:w-[750px] md:h-[290px] w-[98vw] h-[38vw] flex p-8 mb-8">
                 <!-- Left half (Centered) -->
