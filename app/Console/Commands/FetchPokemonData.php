@@ -6,21 +6,21 @@ use App\Models\Pokemon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
-class SyncPokemonData extends Command
+class FetchPokemonData extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:sync-pokemon-data';
+    protected $signature = 'app:fetch-pokemon-data';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sync data from the Pokemon API.';
+    protected $description = 'Fetch data from the Pokemon API.';
 
     /**
      * Execute the console command.
@@ -31,7 +31,7 @@ class SyncPokemonData extends Command
             // Make API request using Laravel HTTP client
             $response = Http::get('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0');
 
-            // Process and use the synced data as needed
+            // Process and use the fetched data as needed
             $pokemonList = $response->json()['results'];
 
             foreach ($pokemonList as $pokemonData) {
@@ -77,7 +77,7 @@ class SyncPokemonData extends Command
                 );
             }
 
-            $this->info('Pokemon data synced successfully.');
+            $this->info('Pokemon data fetched successfully.');
         } catch (\Exception $e) {
             $this->error('An error occurred: '.$e->getMessage());
         }
