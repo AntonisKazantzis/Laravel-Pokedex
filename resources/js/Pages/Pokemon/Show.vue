@@ -11,7 +11,7 @@ import {
     IconHeartFilled,
 } from "@tabler/icons-vue";
 
-const props = defineProps({
+let props = defineProps({
     pokemon: {
         type: Object,
         default: () => ({}),
@@ -21,6 +21,10 @@ const props = defineProps({
         default: () => ({}),
     },
     pivot: {
+        type: Object,
+        default: () => ({}),
+    },
+    evolution_chain: {
         type: Object,
         default: () => ({}),
     },
@@ -53,136 +57,143 @@ const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === po
         <div class="border-t pt-16 pb-16">
             <div
                 class="flex flex-col shadow-md border-2 justify-center mx-auto p-4 space-y-4 rounded overflow-hidden min-h-[795px] max-w-[1800px]">
-                <!-- Header Section -->
+                <!-- Header Card Section -->
                 <div
                     class="header bg-cover flex flex-col sm:flex-row items-center mx-auto w-full p-4 rounded overflow-hidden justify-between">
                     <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
-                        <div class="text-[#e2e2e1] dark:text-black text-lg font-semibold leading-tight">
+                        <div class="text-[#e2e2e1] dark:text-black text-lg font-semibold pb-0.5">
                             #{{ pokemon.pokemon_id.toString().padStart(4, "0") }}
                         </div>
 
-                        <div class="text-lg font-semibold leading-tight">
+                        <div class="text-lg font-semibold pb-0.5">
                             <span class="capitalize dark:text-black text-white">{{ pokemon.name }}</span>
-                        </div>
-
-                        <div class="flex dark:text-black text-white text-lg font-semibold leading-tight">
-                            Evolves &nbsp;To&nbsp;&nbsp;
-                            <div v-for="(evolution, index) in pokemon.evolution_chain" :key="index" :class="evolution">
-                                <Link :href="route('pokemons.show', {
-                                    pokemon: evolution,
-                                })
-                                    " :active="route().current('pokemons.show')"
-                                    class="border-b-2 border-transparent text-lg font-semibold leading-tight text-white dark:text-black hover:border-indigo-500 focus:outline-none focus:text-indigo-500 dark:focus:text-indigo-500 transition duration-150 ease-in-out capitalize">
-                                {{ evolution }}
-                                </Link>
-                            </div>
                         </div>
                     </div>
 
                     <div class="mt-4 sm:mt-0">
-                        <IconHeartFilled :class="{
-                            'text-red-500 hover:text-gray-400': isLiked(pokemon.pokemon_id),
-                            'text-gray-400 hover:text-red-500': !isLiked(pokemon.pokemon_id),
-                        }" :size="28" @click="like(pokemon)" />
+                        <IconHeartFilled :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.pokemon_id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.pokemon_id) }" :size="28" @click="like(pokemon)" />
                     </div>
                 </div>
 
+                <!-- Card Divider -->
+                <hr class="w-full border-t border-white dark:border-gray-900" />
 
-                <!-- Divider -->
-                <hr class="w-full border-t border-white dark:border-gray-900 my-2" />
-
-                <!-- Body Section -->
-                <div class="flex-grow mb-4">
+                <!-- Body Card Section -->
+                <div class="flex-grow mb-4 sm:text-start text-center sm:items-start">
                     <span class="relative inline-block">
-                        <img class="h-32 w-32 rounded" :src="pokemon.sprite_2_path" />
+                        <div class="flex dark:text-black text-white text-lg font-semibold leading-tight">
+                            <img class="h-32 w-32 rounded" :src="pokemon.sprite_2_path" />
+                        </div>
                     </span>
 
                     <div class="mb-2 dark:text-black text-white">
-                        Height: {{ (pokemon.height / 10).toFixed(1) }}m
+                        <span>Height:</span>&nbsp;{{ (pokemon.height / 10).toFixed(1) }}m
                     </div>
 
                     <div class="mb-2 dark:text-black text-white">
-                        Weight: {{ (pokemon.weight / 10).toFixed(1) }}kg
+                        <span>Weight:</span>&nbsp;{{ (pokemon.weight / 10).toFixed(1) }}kg
                     </div>
 
                     <div class="mb-2 dark:text-black text-white">
-                        Category: {{ pokemon.genera }}
+                        <span>Category:</span>&nbsp;{{ pokemon.genera }}
                     </div>
 
                     <div class="mb-2 dark:text-black text-white">
-                        Type:
+                        <span>Type:</span>
                         <span v-for="(type, index) in pokemon.types" :key="index" :class="type"
-                            class="pr-1 text-base uppercase font-bold">
-                            {{ type }}
+                            class="text-base uppercase font-bold">
+                            &nbsp;{{ type }}
                         </span>
                     </div>
 
                     <div class="capitalize font-[400px] dark:text-black text-white">
-                        Abilities:
-                        <span v-for="(ability, index) in pokemon.abilities" :key="index" :class="ability"
-                            class="capitalize pr-1 text-base dark:text-black text-white">
-                            {{ ability }}
+                        <span>Abilities:</span>
+                        <span v-for="(ability, index) in pokemon.abilities" :key="index" :class="ability" class="capitalize text-base dark:text-black text-white">
+                            &nbsp;{{ ability }}
                         </span>
                     </div>
 
-                    <div class="flex-1 flex flex-col items-end">
-                        <table class="text-[16px] capitalize ml-[-20px] sm:-mt-[145px] mt-[45px]" cellspacing="0">
+                    <div class="flex-1 flex flex-col items-center sm:items-end">
+                        <table class="text-[16px] capitalize  sm:-mt-[145px] mt-[45px]" cellspacing="0">
                             <tbody v-for="(stat, index) in pokemon.stats" :key="index" class="flex">
-                                <tr
-                                    class="w-[145px] text-[13px] -mt-[2px] font-bold sm:pr-[30px] -pr-[15px] flex justify-end dark:text-black text-white">
-                                    {{
-                                        stat.name
-                                    }}
+                                <tr class="sm:w-[145px] w-[100px] text-[13px] -mt-[2px] font-bold sm:pr-[30px] -pr-[15px] flex justify-end dark:text-black text-white">
+                                    {{ stat.name }}
                                 </tr>
 
-                                <td
-                                    class="sm:w-[60px] w-[12vw] font-[500px] -mt-[2px] text-[13px] flex justify-end sm:pr-[20px] pr-[3vw] dark:text-black text-white">
+                                <td class="sm:w-[60px] w-[12vw] font-[500px] -mt-[2px] text-[13px] flex justify-end sm:pr-[20px] pr-[3vw] dark:text-black text-white">
                                     {{ stat.base_stat }}
                                 </td>
 
-                                <td
-                                    class="sm:w-[190px] max-w-[190px] w-[40vw] h-[12px] mt-[3px] bg-[#e2e2e1] dark:border dark:border-black dark:bg-[#e2e2e1] mb-[10px] rounded-[3px] overflow-hidden">
-                                    <div :class="damageColor(stat.base_stat)"
-                                        class="h-full transition-width duration-500 rounded-[3px]" :style="{
-                                            width: `${(stat.base_stat / 200) * 100}%`,
-                                        }"></div>
+                                <td class="sm:w-[190px] max-w-[190px] w-[40vw] h-[12px] mt-[3px] bg-[#e2e2e1] dark:border dark:border-black dark:bg-[#e2e2e1] mb-[10px] rounded-[3px] overflow-hidden">
+                                    <div
+                                        :class="damageColor(stat.base_stat)" class="h-full transition-width duration-500 rounded-[3px]"
+                                        :style="{ width: `${(stat.base_stat / 200) * 100}%`}">
+                                    </div>
                                 </td>
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="flex sm:flex-row flex-col sm:mt-40 mt-8 items-center sm:items-end">
+                        <template v-for="(evolution, index) in props.evolution_chain" :key="index">
+                            <Link :href="route('pokemons.show', { pokemon: evolution })" :active="route().current('pokemons.show')">
+                                <img class="h-32 w-32 rounded sm:mx-8 mx-[2vw]"
+                                    :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index}.svg`" />
+                            </Link>
+
+                            <template v-if="index !== props.evolution_chain.length - 1">
+                                <template v-if="index < 3">
+                                    <div class="flex items-center sm:mx-0 mx-14 sm:my-auto my-6 bg-[#292a35] dark:bg-[#e2e2e1] w-10 h-10 rounded-full">
+                                        <span class="flex mx-auto justify-center text-[30px] dark:text-black text-white rotate-90 sm:rotate-0">
+                                            >
+                                        </span>
+                                    </div>
+                                </template>
+                            </template>
+                        </template>
+                    </div>
                 </div>
 
-                <!-- Divider -->
+                <!-- Card Divider -->
                 <hr class="w-full border-t border-white dark:border-gray-900 my-2" />
 
-                <!-- Footer Section -->
-                <div
-                    class="flex flex-col sm:flex-row items-center justify-between mx-auto w-full dark:text-black text-white">
+                <!-- Footer Card Section -->
+                <div class="flex flex-col sm:flex-row items-center justify-between mx-auto w-full dark:text-black text-white">
                     <div class="flex items-center space-x-4 mb-4 sm:mb-0">
                         <span class="font-semibold flex items-center space-x-1">
-                            <IconHeart class="mr-1" :size="18" />
+                            <IconHeart :size="18" />
+
                             <FormatNumber :number="likes" />
                         </span>
+
                         <span class="font-semibold flex items-center space-x-1">
-                            <IconEye class="mr-1" :size="18" />
+                            <IconEye :size="18" />
+
                             <FormatNumber :number="pokemon.views" />
                         </span>
                     </div>
 
                     <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
                         <span class="font-semibold flex items-center space-x-1">
-                            <IconClock class="mr-1" :size="18" />
-                            created
+                            <IconClock :size="18" />
+
+                            <span>
+                                created
+                            </span>
+
                             <DiffForHumans :date="pokemon.created_at" />
                         </span>
                         <span class="font-semibold flex items-center space-x-1">
-                            <IconClock class="mr-1" :size="18" />
-                            last updated
+                            <IconClock :size="18" />
+
+                            <span>
+                                last updated
+                            </span>
+
                             <DiffForHumans :date="pokemon.updated_at" />
                         </span>
                     </div>
                 </div>
-
             </div>
         </div>
     </AppLayout>
