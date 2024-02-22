@@ -13,7 +13,7 @@ Ensure you have [Git](https://git-scm.com/), [Composer](https://getcomposer.org/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/AntonisKazantzis/Pokedex.git
+   git clone https://github.com/AntonisKazantzis/Pokedex-Inertia.git
    ```
 
 2. **Install dependencies:**
