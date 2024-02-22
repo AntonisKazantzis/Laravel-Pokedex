@@ -1,40 +1,68 @@
-This project is a Pokemon Application based on the API provided by https://pokeapi.co/.
+# Pokedex Inertia
 
-<h3>Overview</h3>
-This application, built primary on Vue JS with a back-end of PHP Laravel, is an attempt to suffice the specifications indicated as follows: 
-<br/>
-<ul>
-    <li>Make a web app using Laravel + Vue with the following requirements:- User Authentication and Sign-up</li>
-    <li>Once the user is logged in, they will see all the available pokemons from https://pokeapi.co/ API</li>
-    <li>The user can choose their favorite pokemon from the list of pokemons.</li>
-    <li>The user can search pokemons.</li>
-</ul>
-<h3>Installation:</h3>
-<ul>
-    <li>Run <b>git clone https://github.com/AntonisKazantzis/pokedex.git<b></li>
-    <li>Run <b>composer install</b></li>
-    <li>Run <b>cp .env.example .env</b></li>
-    <li>Run <b>php artisan key:generate</b></li>
-    <li>Run <b>php artisan migrate:fresh --seed</b></li>
-    <li>Run <b>npm install</b></li>
-    <li>Run <b>npm run dev</b></li>
-    <li>Run <b>php artisan serve</b></li>
-</ul>
-<h3>Packages/Libraries Used:</h3>
-<ul>
-    <li>Tabler</li>
-    <li>Axios 0.25</li>
-    <li>PHP 8</li>
-    <li>Laravel 9</li>
-    <li>Boostrap 5</li>
-</ul>
-<h3>Screenshots:</h3>
-<div'>
-    <img src="https://github.com/AntonisKazantzis/pokedex/blob/master/public/image/Dashboard.png?raw=true" style='width:60%;height:60%; display:flex; margin-bottom:20px'>
-    <img src="https://github.com/AntonisKazantzis/pokedex/blob/master/public/image/Favorites.png?raw=true" style='width:60%;height:60%; margin-bottom:20px'>
-    <img src="https://github.com/AntonisKazantzis/pokedex/blob/master/public/image/Search.png?raw=true" style='width:60%;height:60%; margin-bottom:20px'>
-</div>
+## Overview
+Pokedex Inertia is a web application built with Vue.js and PHP Laravel, providing a modern and responsive interface for exploring Pokémon data sourced from the [PokeAPI](https://pokeapi.co/). Key features include:
 
-<b>Tags:</b> Vue JS, Laravel, Tailwind, Full-Stack Development, Pokemon API, Inertia JS
+- Real-time updates of Pokémon data every Sunday at 12:00.
+- Full responsiveness and modern design.
+- Pagination, theme switch, custom errors page, and notifications.
+- Like/unlike Pokémon, search, and filter functionalities.
 
-<h4>Developed by: <b>Antonis Kazantzis</b></h4>
+## Installation
+Ensure you have [Git](https://git-scm.com/), [Composer](https://getcomposer.org/), and [Node.js](https://nodejs.org/) installed.
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/AntonisKazantzis/pokedex.git
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **Set up environment:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Migrate database and seed initial data:**
+   ```bash
+   php artisan migrate:fresh --seed
+   php artisan app:fetch-pokemon-data
+   ```
+
+5. **Compile assets and start server:**
+   ```bash
+   npm run dev
+   php artisan serve
+   ```
+
+6. **Access the application:**
+   - URL: [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login)
+   - Credentials: 
+     - Email: test@test.com 
+     - Password: password
+
+## Dependencies
+- Laravel 10.10
+- Laravel Pint 1.0
+- Laravel Jetstream 4.2
+- Inertia.js 0.6.8
+- Inertia.js Vue3 1.0.0
+- Tabler Icons-Vue 2.46.0
+- Date-Fns 3.3.1
+- Lodash 4.17.21
+
+## Screenshots
+![Pokemons](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Pokemons.png?raw=true)
+![Liked Pokemons](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Liked.png?raw=true)
+![Pokemon Details](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Pokemon.png?raw=true)
+
+## Tags
+#VueJS #Laravel #Tailwind #Jetstream #FullStackDevelopment #PokemonAPI #InertiaJS
+
+## Developer
+Antonis Kazantzis
