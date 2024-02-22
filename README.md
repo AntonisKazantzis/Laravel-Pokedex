@@ -5,7 +5,7 @@ Pokedex Inertia is a web application built with Vue.js and PHP Laravel, providin
 
 - Real-time updates of Pokémon data every Sunday at 12:00.
 - Full responsiveness and modern design.
-- Pagination, theme switch, custom errors page, and notifications.
+- Pagination, theme switch, dynamic error page, and notifications.
 - Like/unlike Pokémon, search, and filter functionalities.
 
 ## Installation
@@ -57,9 +57,20 @@ Ensure you have [Git](https://git-scm.com/), [Composer](https://getcomposer.org/
 - Lodash 4.17.21
 
 ## Screenshots
-![Pokemons](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Pokemons.png?raw=true)
-![Liked Pokemons](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Liked.png?raw=true)
-![Pokemon Details](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Pokemon.png?raw=true)
+![Pokemon Index Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Index.png?raw=true)
+![Light Theme Index Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Light-Theme-Index.png?raw=true)
+![Responsive Pokemon Index Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Responsive-Index.png?raw=true)
+![User Liked Pokemon Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Liked.png?raw=true)
+![Pokemon Show Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Show.png?raw=true)
+![Light Theme Show Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Light-Theme-Show.png?raw=true)
+![Responsive Pokemon Show Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Responsive-Show-Top.png?raw=true)
+![Responsive Pokemon Show Top Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Responsive-Show-Top.png?raw=true)
+![Responsive Pokemon Show Bottom Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Responsive-Show-Bottom.png?raw=true)
+![Login Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Login.png?raw=true)
+![Register Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Register.png?raw=true)
+![Footer](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Footer.png?raw=true)
+![Notification](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Notification.png?raw=true)
+![Dynamic Error Page](https://github.com/AntonisKazantzis/pokedex-inertia/blob/master/public/image/Dynamic-Error-Page.png?raw=true)
 
 ## Tags
 #VueJS #Laravel #Tailwind #Jetstream #FullStackDevelopment #PokemonAPI #InertiaJS
