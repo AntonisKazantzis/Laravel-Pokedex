@@ -28,8 +28,11 @@ class FetchPokemonData extends Command
     public function handle()
     {
         try {
-            // Make API request using Laravel HTTP client
-            $response = Http::get('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0');
+            // Ask user for the limit
+            $limit = $this->ask('Enter the limit for the API (e.g., 10):');
+
+            // Make API request using Laravel HTTP client with the provided limit
+            $response = Http::get("https://pokeapi.co/api/v2/pokemon?limit={$limit}&offset=0");
 
             // Process and use the fetched data as needed
             $pokemonList = $response->json()['results'];
