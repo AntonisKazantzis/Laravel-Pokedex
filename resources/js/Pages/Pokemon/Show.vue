@@ -50,6 +50,10 @@ const like = (pokemon) => router.post(route("pokemons.like", { pokemon: pokemon 
 
 // Function to check if pokemon is liked
 const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === pokemonId);
+
+// Function to get length and last index of pokemon's evolution_chain
+const evolution_chain_length = Object.keys(props.evolution_chain).length;
+const lastIndex = Object.keys(props.evolution_chain).pop();
 </script>
 
 <template>
@@ -147,8 +151,8 @@ const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === po
                                     :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index}.svg`" />
                             </Link>
 
-                            <template v-if="index !== props.evolution_chain.length - 1">
-                                <template v-if="index < 3">
+                            <template v-if="index !== evolution_chain_length - 1">
+                                <template v-if="index < lastIndex">
                                     <div class="flex items-center sm:mx-0 mx-14 sm:my-auto my-6 bg-[#292a35] dark:bg-[#e2e2e1] w-10 h-10 rounded-full">
                                         <span class="flex mx-auto justify-center text-[30px] dark:text-black text-white rotate-90 sm:rotate-0">
                                             >
