@@ -48,6 +48,13 @@ class SyncPokemonData extends Command
                     ];
                 }, $pokemonDetails['stats']);
 
+                $firstEvolution = $evolutionChain['chain']['species'] ?? null;
+                $secondEvolution = $evolutionChain['chain']['evolves_to'][0]['evolves_to'][0]['species'] ?? null;
+                $thirdEvolution = $evolutionChain['chain']['evolves_to'][0]['species'] ?? null;
+
+                // Create an array with the values, filtering out null values
+                $mergedEvolutions = array_filter([$firstEvolution, $thirdEvolution, $secondEvolution]);
+
                 // Prepare data for creation or update
                 $pokemonData = [
                     'name' => $pokemonDetails['name'],
@@ -61,7 +68,7 @@ class SyncPokemonData extends Command
                     'egg_groups' => json_encode(collect($pokemonSpecies['egg_groups'])->pluck('name')->toArray()),
                     'genera' => $pokemonSpecies['genera'][7]['genus'] ?? null,
                     'growth_rate' => $pokemonSpecies['growth_rate']['name'],
-                    'evolution_chain' => json_encode(collect($evolutionChain['chain']['evolves_to'])->pluck('species.name')->toArray()),
+                    'evolution_chain' => json_encode(collect($mergedEvolutions)->pluck('name')->toArray()),
                 ];
 
                 Pokemon::updateOrCreate(
