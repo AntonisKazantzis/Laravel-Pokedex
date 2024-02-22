@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Pokemon;
+use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
+use Tests\TestCase;
 
 class PokemonTest extends TestCase
 {
@@ -69,7 +69,6 @@ class PokemonTest extends TestCase
         // Assert that the redirected URL matches the expected URL
         $this->assertEquals(route('welcome'), $redirectedUrl);
     }
-
 
     public function test_liked_page()
     {

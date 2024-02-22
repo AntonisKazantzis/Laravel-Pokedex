@@ -2,9 +2,9 @@
 
 namespace App\Exceptions;
 
-use Throwable;
-use Inertia\Inertia;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Inertia\Inertia;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -36,9 +36,7 @@ class Handler extends ExceptionHandler
 
         if (in_array($status, [404, 500, 503, 403, 401])) {
             return Inertia::render('ErrorMessage', compact('status'))->toResponse($request)->setStatusCode($status);
-        }
-
-        elseif ($status === 419) {
+        } elseif ($status === 419) {
             return redirect()->back()->withErrors(['status' => __('The page expired, please try again.')]);
         }
 

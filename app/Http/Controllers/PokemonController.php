@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pokemon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
-use App\Models\Pokemon;
 
 class PokemonController extends Controller
 {
@@ -24,19 +24,19 @@ class PokemonController extends Controller
 
         // Query Pokemons based on filters
         $pokemons = Pokemon::query()->when($search, function ($q, $search) {
-                $q->where('name', 'like', '%' . $search . '%');
-            })
+            $q->where('name', 'like', '%'.$search.'%');
+        })
             ->when($ability, function ($q, $ability) {
-                $q->where('abilities', 'like', '%' . $ability . '%');
+                $q->where('abilities', 'like', '%'.$ability.'%');
             })
             ->when($type, function ($q, $type) {
-                $q->where('types', 'like', '%' . $type . '%');
+                $q->where('types', 'like', '%'.$type.'%');
             })
             ->when($growth_rate, function ($q, $growth_rate) {
                 $q->where('growth_rate', $growth_rate);
             })
             ->when($egg_group, function ($q, $egg_group) {
-                $q->where('egg_groups', 'like', '%' . $egg_group . '%');
+                $q->where('egg_groups', 'like', '%'.$egg_group.'%');
             })
             ->when($sort, function ($q, $sort) {
                 [$column, $order] = explode(':', $sort);
@@ -135,6 +135,7 @@ class PokemonController extends Controller
         $pokemons->getCollection()->transform(function ($pokemon) {
             // Transform each pokemon
             $this->transformPokemon($pokemon);
+
             return $pokemon;
         });
     }

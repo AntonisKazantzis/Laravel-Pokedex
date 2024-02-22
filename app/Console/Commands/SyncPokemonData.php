@@ -79,7 +79,7 @@ class SyncPokemonData extends Command
 
             $this->info('Pokemon data synced successfully.');
         } catch (\Exception $e) {
-            $this->error('An error occurred: ' . $e->getMessage());
+            $this->error('An error occurred: '.$e->getMessage());
         }
     }
 }

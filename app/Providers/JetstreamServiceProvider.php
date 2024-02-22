@@ -5,8 +5,8 @@ namespace App\Providers;
 use App\Actions\Fortify\AuthenticateLoginAttempt;
 use App\Actions\Jetstream\DeleteUser;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Jetstream\Jetstream;
 use Laravel\Fortify\Fortify;
+use Laravel\Jetstream\Jetstream;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
