@@ -8,6 +8,6 @@ const getImageUrl = (imagePath) => {
 
 <template>
     <Link :href="'/'">
-        <img class="w-16 h-16" :src="getImageUrl('image/pokeball.png')" alt="Logo">
+        <img class="w-16 h-16" :src="getImageUrl('image/Pokemon-Ball.png')" alt="Logo">
     </Link>
 </template>

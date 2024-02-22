@@ -1,5 +1,5 @@
 <template>
-    <img class="w-12 h-12" :src="getImageUrl('image/pokeball.png')" alt="Logo">
+    <img class="w-12 h-12" :src="getImageUrl('image/Pokemon-Ball.png')" alt="Logo">
 </template>
 
 <script setup>
