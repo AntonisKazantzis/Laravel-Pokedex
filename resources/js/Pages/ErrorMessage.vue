@@ -46,8 +46,8 @@ const errorDescription =
 </script>
 
 <template>
-    <template v-if="$page.props.auth.user">
-        <AppLayout :title="`Error ${errorStatus}`">
+    <template v-if="$page.props.auth && $page.props.auth.user">
+        <AppLayout :title="`${errorStatus}`">
             <template #header>
                 <div class="flex justify-between text-white dark:text-black p-[10px]">
                     <h2 class="font-semibold text-xl flex-grow flex items-center justify-start">
@@ -82,7 +82,7 @@ const errorDescription =
     </template>
 
     <template v-else>
-        <GuestLayout :title="`Error ${errorStatus}`">
+        <GuestLayout :title="`${errorStatus}`">
             <template #header>
                 <div class="flex justify-between text-white dark:text-black p-[10px]">
                     <h2 class="font-semibold text-xl flex-grow flex items-center justify-start">
