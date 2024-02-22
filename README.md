@@ -57,9 +57,11 @@ Ensure you have [Git](https://git-scm.com/), [Composer](https://getcomposer.org/
 - Lodash 4.17.21
 
 ## Screenshots
-![Pokemon Index Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Index.png?raw=true)
+![Pokemon Index Top Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Index-Top.png?raw=true)
+![Pokemon Index Bottom Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Index-Bottom.png?raw=true)
 ![Light Theme Index Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Light-Theme-Index.png?raw=true)
-![Responsive Pokemon Index Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Responsive-Index.png?raw=true)
+![Responsive Pokemon Index Top Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Responsive-Index-Top.png?raw=true)
+![Responsive Pokemon Index Bottom Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Responsive-Index-Bottom.png?raw=true)
 ![User Liked Pokemon Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Liked.png?raw=true)
 ![Pokemon Show Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Show.png?raw=true)
 ![Light Theme Show Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Light-Theme-Show.png?raw=true)
@@ -67,7 +69,6 @@ Ensure you have [Git](https://git-scm.com/), [Composer](https://getcomposer.org/
 ![Responsive Pokemon Show Bottom Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Responsive-Show-Bottom.png?raw=true)
 ![Login Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Login.png?raw=true)
 ![Register Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Register.png?raw=true)
-![Footer](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Footer.png?raw=true)
 ![Notification](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Notification.png?raw=true)
 ![Dynamic Error Page](https://github.com/AntonisKazantzis/Pokedex-Inertia/blob/master/public/image/Dynamic-Error-Page.png?raw=true)
 
