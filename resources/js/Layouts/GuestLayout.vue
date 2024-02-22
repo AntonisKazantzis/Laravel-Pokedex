@@ -128,7 +128,7 @@ const showingNavigationDropdown = ref(false);
                 <footer class="bg-black dark:bg-white text-white dark:text-black border-t shadow">
                     <div class="mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         <div class="flex flex-col sm:flex-row justify-between items-center mx-auto">
-                            <div class="mb-4 sm:mb-0 text-center">
+                            <div class="mb-4 sm:mb-0 text-center w-auto">
                                 <p class="text-sm font-medium text-white dark:text-black ml-1">
                                     Copyright &copy; {{ new Date().getFullYear() }} Pokedex - All rights reserved
                                 </p>
@@ -140,7 +140,7 @@ const showingNavigationDropdown = ref(false);
                                 </p>
                             </div>
 
-                            <div class="flex flex-wrap space-x-4 justify-center sm:justify-start mb-2 sm:mb-0 sm:mr-72 mr-0">
+                            <div class="flex flex-wrap sm:space-x-4 justify-center sm:justify-start mb-2 sm:mb-0">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')" class="mb-2 sm:mb-0">
                                     Dashboard
                                 </NavLink>
@@ -151,9 +151,7 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <div>
-                                <a href="#" class="border-b-2 border-transparent text-sm font-medium leading-5 text-white dark:text-black dark:focus:text-indigo-500 hover:border-indigo-500 focus:text-indigo-500 dark:border-white dark:hover:border-indigo-500 focus:outline-none transition duration-150 ease-in-out">
-                                    Top
-                                </a>
+                                <a href="#" class="border-b-2 border-transparent text-sm font-medium leading-5 text-white dark:text-black dark:focus:text-indigo-500 hover:border-indigo-500 focus:text-indigo-500 dark:border-white dark:hover:border-indigo-500 focus:outline-none transition duration-150 ease-in-out">Top</a>
                             </div>
                         </div>
                     </div>
