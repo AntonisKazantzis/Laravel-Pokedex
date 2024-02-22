@@ -1,4 +1,5 @@
 <script setup>
+// Import necessary components and libraries
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { defineProps } from "vue";
 import { Link, router } from "@inertiajs/vue3";
@@ -11,6 +12,7 @@ import {
     IconHeartFilled,
 } from "@tabler/icons-vue";
 
+// Define props with default values
 let props = defineProps({
     pokemon: {
         type: Object,
@@ -30,6 +32,7 @@ let props = defineProps({
     },
 });
 
+// Function to determine damage color based on base stat
 const damageColor = (baseStat) => {
     if (baseStat <= 50) {
         return "low-damage";
@@ -42,7 +45,10 @@ const damageColor = (baseStat) => {
     }
 };
 
+// Function to like or unlike a pokemon
 const like = (pokemon) => router.post(route("pokemons.like", { pokemon: pokemon }));
+
+// Function to check if pokemon is liked
 const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === pokemonId);
 </script>
 

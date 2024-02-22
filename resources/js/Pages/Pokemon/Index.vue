@@ -1,10 +1,12 @@
 <script setup>
+// Import necessary components and libraries
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import { Link, router } from "@inertiajs/vue3";
-import { watch, ref, computed } from "vue";
+import { watch, ref, computed, defineProps } from "vue";
 import { IconHeartFilled } from "@tabler/icons-vue";
 
+// Define props with default values
 let props = defineProps({
     pokemons: {
         type: Object,
@@ -36,6 +38,7 @@ let props = defineProps({
     },
 });
 
+// Define sort options
 const sortOptions = [
     { label: "Heaviest", value: "weight:desc" },
     { label: "Lightest", value: "weight:asc" },
@@ -45,6 +48,7 @@ const sortOptions = [
     { label: "Oldest", value: "created_at:asc" },
 ];
 
+// Define reactive variables for filters
 let search = ref(null);
 let selectedAbility = ref("");
 let selectedType = ref("");
@@ -52,6 +56,7 @@ let selectedEggGroup = ref("");
 let selectedGrowthRate = ref("");
 let selectedSort = ref("");
 
+// Function to reset filters
 const resetFilters = () => {
     search.value = "";
     selectedAbility.value = "";
@@ -61,6 +66,7 @@ const resetFilters = () => {
     selectedSort.value = "";
 };
 
+// Function to determine damage color based on base stat
 const damageColor = (baseStat) => {
     if (baseStat <= 50) {
         return "low-damage";
@@ -73,15 +79,21 @@ const damageColor = (baseStat) => {
     }
 };
 
+// Function to like or unlike a pokemon
 const like = (pokemon) => router.post(route("pokemons.like", { pokemon: pokemon }));
+
+// Function to check if pokemon is liked
 const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === pokemonId);
 
+// Function to split and flatten array
 const splitAndFlatten = (arr) => arr.flatMap((item) => item.map((t) => t.trim()));
 
+// Compute unique types, abilities, and egg groups
 const uniqueTypes = computed(() => [...new Set(splitAndFlatten(props.types))]);
 const uniqueAbilities = computed(() => [...new Set(splitAndFlatten(props.abilities))]);
 const uniqueEggGroups = computed(() => [...new Set(splitAndFlatten(props.egg_groups))]);
 
+// Watch for changes in filters and update route accordingly
 watch(
     [
         search,
