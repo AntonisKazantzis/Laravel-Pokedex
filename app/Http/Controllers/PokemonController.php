@@ -105,7 +105,7 @@ class PokemonController extends Controller
         }
 
         // Redirect back with flash message
-        return redirect()->back()->with(['message' => $message, 'type' => $type]);
+        return to_route('pokemons.index')->with(['message' => $message, 'type' => $type]);
     }
 
     /**
