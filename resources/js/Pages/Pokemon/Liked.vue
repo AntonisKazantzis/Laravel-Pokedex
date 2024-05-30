@@ -32,7 +32,10 @@ const damageColor = (baseStat) => {
 };
 
 // Function to like or unlike a pokemon
-const like = (pokemon) => router.post(route("pokemons.like", { pokemon: pokemon }));
+const like = (pokemon) => router.post(route("pokemons.like", { pokemon: pokemon }), {
+    preserveScroll: true,
+    }
+);
 
 // Function to check if pokemon is liked
 const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === pokemonId);
