@@ -84,7 +84,9 @@ const lastKey = Object.keys(props.evolution_chain).pop();
                     </div>
 
                     <div class="mt-4 sm:mt-0">
-                        <IconHeartFilled :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.pokemon_id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.pokemon_id) }" :size="28" @click="like(pokemon)" />
+                        <form @click.prevent="like(pokemon)">
+                            <IconHeartFilled :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.pokemon_id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.pokemon_id) }" :size="['8vw']" />
+                        </form>
                     </div>
                 </div>
 

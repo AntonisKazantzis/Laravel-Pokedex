@@ -83,7 +83,9 @@ const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === po
 
                     <div class="text-center mt-[-32px]">
                         <div class="mt-8 flex justify-center">
-                            <IconHeartFilled :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.id) }" :size="['8vw']" @click="like(pokemon)" />
+                            <form @click.prevent="like(pokemon)">
+                                <IconHeartFilled :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.id) }" :size="['8vw']" />
+                            </form>
                         </div>
 
                         <h6 class="capitalize text-[8vw] dark:text-black text-white font-bold">
@@ -190,7 +192,9 @@ const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === po
                 <!-- Right half -->
                 <div class="flex-1 flex flex-col items-end">
                     <div class="mb-4">
-                        <IconHeartFilled :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.id) }" :size="28" @click="like(pokemon)" />
+                        <form @click.prevent="like(pokemon)">
+                            <IconHeartFilled :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.id) }" :size="['8vw']" />
+                        </form>
                     </div>
 
                     <table class="capitalize md:ml-[-20px] ml-[-4vw]" cellspacing="0">
