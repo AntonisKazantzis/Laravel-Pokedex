@@ -14,7 +14,6 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        // Retrieve query parameters
         $search = Request::input('search');
         $ability = Request::input('ability');
         $type = Request::input('type');
@@ -22,7 +21,6 @@ class PokemonController extends Controller
         $egg_group = Request::input('egg_group');
         $sort = Request::input('sort');
 
-        // Query Pokemons based on filters
         $pokemons = Pokemon::query()->when($search, function ($q, $search) {
             $q->where('name', 'like', '%'.$search.'%');
         })
@@ -43,22 +41,18 @@ class PokemonController extends Controller
                 $q->orderBy($column, $order);
             })->orderBy('created_at', 'asc')->paginate(10)->withQueryString();
 
-        // Transform Pokemons for better readability
         $this->transformPokemons($pokemons);
 
-        // Retrieve distinct values for filters
         $types = Pokemon::distinct()->pluck('types')->toArray();
         $abilities = Pokemon::distinct()->pluck('abilities')->toArray();
         $egg_groups = Pokemon::distinct()->pluck('egg_groups')->toArray();
         $growth_rates = Pokemon::distinct()->pluck('growth_rate')->toArray();
         $pivot = DB::table('liked_pokemons')->where('user_id', auth()->id())->get();
 
-        // Decode JSON arrays
         $types = array_map('json_decode', $types);
         $abilities = array_map('json_decode', $abilities);
         $egg_groups = array_map('json_decode', $egg_groups);
 
-        // Render view with data
         return Inertia::render('Pokemon/Index', compact('pokemons', 'types', 'search', 'abilities', 'egg_groups', 'growth_rates', 'sort', 'pivot'));
     }
 
@@ -67,21 +61,16 @@ class PokemonController extends Controller
      */
     public function show($name)
     {
-        // Retrieve Pokemon by name
         $pokemon = Pokemon::where('name', $name)->firstOrFail();
         $pokemon->increment('views');
 
-        // Transform Pokemon for better readability
         $this->transformPokemon($pokemon);
 
-        // Retrieve evolution chain
         $evolution_chain = Pokemon::whereIn('name', $pokemon->evolution_chain)->pluck('name', 'id')->toArray();
 
-        // Retrieve likes count and user's liked pokemons
         $likes = DB::table('liked_pokemons')->count();
         $pivot = DB::table('liked_pokemons')->where('user_id', auth()->id())->get();
 
-        // Render view with data
         return Inertia::render('Pokemon/Show', compact('pokemon', 'likes', 'pivot', 'evolution_chain'));
     }
 
@@ -90,10 +79,8 @@ class PokemonController extends Controller
      */
     public function like(Pokemon $pokemon)
     {
-        // Retrieve authenticated user
         $user = auth()->user();
 
-        // Check if the user has liked or unliked the pokemon
         if ($pokemon->users->contains($user)) {
             $pokemon->users()->detach($user);
             $message = "You have unliked $pokemon->name.";
@@ -113,17 +100,13 @@ class PokemonController extends Controller
      */
     public function liked()
     {
-        // Retrieve authenticated user
         $user = auth()->user();
 
-        // Retrieve liked pokemons of the user
         $pokemons = $user->pokemons()->orderBy('created_at', 'asc')->paginate(10)->withQueryString();
         $pivot = DB::table('liked_pokemons')->where('user_id', auth()->id())->get();
 
-        // Transform pokemons for better readability
         $this->transformPokemons($pokemons);
 
-        // Render view with data
         return Inertia::render('Pokemon/Liked', compact('pokemons', 'pivot'));
     }
 
@@ -133,7 +116,6 @@ class PokemonController extends Controller
     private function transformPokemons($pokemons)
     {
         $pokemons->getCollection()->transform(function ($pokemon) {
-            // Transform each pokemon
             $this->transformPokemon($pokemon);
 
             return $pokemon;
@@ -145,7 +127,6 @@ class PokemonController extends Controller
      */
     private function transformPokemon($pokemon)
     {
-        // Decode JSON attributes for better readability
         $pokemon->types = json_decode($pokemon->types, true);
         $pokemon->abilities = json_decode($pokemon->abilities, true);
         $pokemon->egg_groups = json_decode($pokemon->egg_groups, true);
