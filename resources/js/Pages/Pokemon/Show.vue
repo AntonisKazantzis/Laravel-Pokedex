@@ -1,5 +1,4 @@
 <script setup>
-// Import necessary components and libraries
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { defineProps } from "vue";
 import { Link, router } from "@inertiajs/vue3";
@@ -12,27 +11,13 @@ import {
     IconHeartFilled,
 } from "@tabler/icons-vue";
 
-// Define props with default values
 let props = defineProps({
-    pokemon: {
-        type: Object,
-        default: () => ({}),
-    },
-    likes: {
-        type: Number,
-        default: () => ({}),
-    },
-    pivot: {
-        type: Object,
-        default: () => ({}),
-    },
-    evolution_chain: {
-        type: Object,
-        default: () => ({}),
-    },
+    pokemon: Object,
+    likes: Number,
+    pivot: Object,
+    evolution_chain: Object,
 });
 
-// Function to determine damage color based on base stat
 const damageColor = (baseStat) => {
     if (baseStat <= 50) {
         return "low-damage";
@@ -45,16 +30,13 @@ const damageColor = (baseStat) => {
     }
 };
 
-// Function to like or unlike a pokemon
 const like = (pokemon) => router.post(route("pokemons.like", { pokemon: pokemon }), {
     preserveScroll: true,
     }
 );
 
-// Function to check if pokemon is liked
 const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === pokemonId);
 
-// Function to get length and last index of pokemon's evolution_chain
 const evolution_chain_length = Object.keys(props.evolution_chain).length;
 const lastKey = Object.keys(props.evolution_chain).pop();
 </script>
@@ -70,7 +52,6 @@ const lastKey = Object.keys(props.evolution_chain).pop();
         <div class="border-t pt-16 pb-16">
             <div
                 class="flex flex-col shadow-md border-2 justify-center mx-auto p-4 space-y-4 rounded overflow-hidden min-h-[795px] max-w-[1800px]">
-                <!-- Header Card Section -->
                 <div
                     class="header bg-cover flex flex-col sm:flex-row items-center mx-auto w-full p-4 rounded overflow-hidden justify-between">
                     <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
@@ -90,10 +71,8 @@ const lastKey = Object.keys(props.evolution_chain).pop();
                     </div>
                 </div>
 
-                <!-- Card Divider -->
                 <hr class="w-full border-t border-white dark:border-gray-900" />
 
-                <!-- Body Card Section -->
                 <div class="flex-grow mb-4 sm:text-start text-center sm:items-start">
                     <span class="relative inline-block">
                         <div class="flex dark:text-black text-white text-lg font-semibold leading-tight">
@@ -169,10 +148,8 @@ const lastKey = Object.keys(props.evolution_chain).pop();
                     </div>
                 </div>
 
-                <!-- Card Divider -->
                 <hr class="w-full border-t border-white dark:border-gray-900 my-2" />
 
-                <!-- Footer Card Section -->
                 <div class="flex flex-col sm:flex-row items-center justify-between mx-auto w-full dark:text-black text-white">
                     <div class="flex items-center space-x-4 mb-4 sm:mb-0">
                         <span class="font-semibold flex items-center space-x-1">

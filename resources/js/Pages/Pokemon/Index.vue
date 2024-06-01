@@ -1,44 +1,20 @@
 <script setup>
-// Import necessary components and libraries
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import { Link, router } from "@inertiajs/vue3";
 import { watch, ref, computed, defineProps } from "vue";
 import { IconHeartFilled } from "@tabler/icons-vue";
 
-// Define props with default values
 let props = defineProps({
-    pokemons: {
-        type: Object,
-        default: () => ({}),
-    },
-    users: {
-        type: Object,
-        default: () => ({}),
-    },
-    types: {
-        type: Array,
-        default: () => ({}),
-    },
-    abilities: {
-        type: Array,
-        default: () => ({}),
-    },
-    egg_groups: {
-        type: Array,
-        default: () => ({}),
-    },
-    growth_rates: {
-        type: Array,
-        default: () => ({}),
-    },
-    pivot: {
-        type: Object,
-        default: () => ({}),
-    },
+    pokemons: Object,
+    users: Object,
+    types: Array,
+    abilities: Array,
+    egg_groups: Array,
+    growth_rates: Array,
+    pivot: Object,
 });
 
-// Define sort options
 const sortOptions = [
     { label: "Heaviest", value: "weight:desc" },
     { label: "Lightest", value: "weight:asc" },
@@ -48,7 +24,6 @@ const sortOptions = [
     { label: "Oldest", value: "created_at:asc" },
 ];
 
-// Define reactive variables for filters
 let search = ref(null);
 let selectedAbility = ref("");
 let selectedType = ref("");
@@ -56,7 +31,6 @@ let selectedEggGroup = ref("");
 let selectedGrowthRate = ref("");
 let selectedSort = ref("");
 
-// Function to reset filters
 const resetFilters = () => {
     search.value = "";
     selectedAbility.value = "";
@@ -66,7 +40,6 @@ const resetFilters = () => {
     selectedSort.value = "";
 };
 
-// Function to determine damage color based on base stat
 const damageColor = (baseStat) => {
     if (baseStat <= 50) {
         return "low-damage";
@@ -79,24 +52,19 @@ const damageColor = (baseStat) => {
     }
 };
 
-// Function to like or unlike a pokemon
 const like = (pokemon) => router.post(route("pokemons.like", { pokemon: pokemon }), {
     preserveScroll: true,
     }
 );
 
-// Function to check if pokemon is liked
 const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === pokemonId);
 
-// Function to split and flatten array
 const splitAndFlatten = (arr) => arr.flatMap((item) => item.map((t) => t.trim()));
 
-// Compute unique types, abilities, and egg groups
 const uniqueTypes = computed(() => [...new Set(splitAndFlatten(props.types))]);
 const uniqueAbilities = computed(() => [...new Set(splitAndFlatten(props.abilities))]);
 const uniqueEggGroups = computed(() => [...new Set(splitAndFlatten(props.egg_groups))]);
 
-// Watch for changes in filters and update route accordingly
 watch(
     [
         search,
@@ -203,10 +171,8 @@ watch(
             </div>
         </template>
 
-        <!-- Responsive Card  -->
         <div v-if="pokemons.data && pokemons.data.length" class="pt-16 pb-8 border-t sm:hidden">
             <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id" class="shadow-md border-2 m-auto rounded overflow-hidden mb-8">
-                <!-- Centered content -->
                 <div class="flex flex-col items-center p-8">
                     <div>
                         <div class="flex">
@@ -291,10 +257,8 @@ watch(
             </p>
         </div>
 
-        <!-- Normal Card  -->
         <div v-if="pokemons.data && pokemons.data.length" class="pt-16 pb-8 border-t hidden sm:block">
             <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id" class="shadow-md border-2 m-auto rounded md:w-[750px] md:h-[290px] w-[98vw] h-[38vw] flex p-8 mb-8">
-                <!-- Left half (Centered) -->
                 <div class="flex-1 mx-auto">
                     <div class="flex mb-4">
                         <div class="flex-1 relative">
@@ -343,7 +307,6 @@ watch(
                     </div>
                 </div>
 
-                <!-- Right half -->
                 <div class="flex-1 flex flex-col items-end">
                     <div class="mb-4">
                         <form @click.prevent="like(pokemon)">

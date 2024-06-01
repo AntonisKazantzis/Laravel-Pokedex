@@ -1,24 +1,15 @@
 <script setup>
-// Import necessary components and libraries
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import { router } from "@inertiajs/vue3";
 import { Link } from "@inertiajs/vue3";
 import { IconHeartFilled } from "@tabler/icons-vue";
 
-// Define props with default values
 let props = defineProps({
-    pokemons: {
-        type: Object,
-        default: () => ({}),
-    },
-    pivot: {
-        type: Object,
-        default: () => ({}),
-    },
+    pokemons: Object,
+    pivot: Object,
 });
 
-// Function to determine damage color based on base stat
 const damageColor = (baseStat) => {
     if (baseStat <= 50) {
         return "low-damage";
@@ -31,13 +22,11 @@ const damageColor = (baseStat) => {
     }
 };
 
-// Function to like or unlike a pokemon
 const like = (pokemon) => router.post(route("pokemons.like", { pokemon: pokemon }), {
     preserveScroll: true,
     }
 );
 
-// Function to check if pokemon is liked
 const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === pokemonId);
 </script>
 
@@ -49,11 +38,9 @@ const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === po
             </div>
         </template>
 
-        <!-- Responsive Card  -->
         <div v-if="pokemons.data && pokemons.data.length" class="pt-16 pb-8 border-t sm:hidden">
             <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id"
                 class="shadow-md border-2 m-auto rounded overflow-hidden mb-8">
-                <!-- Centered content -->
                 <div class="flex flex-col items-center p-8">
                     <div>
                         <div class="flex">
@@ -138,10 +125,8 @@ const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === po
             </p>
         </div>
 
-        <!-- Normal Card  -->
         <div v-if="pokemons.data && pokemons.data.length" class="pt-16 pb-8 border-t hidden sm:block">
             <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id" class="shadow-md border-2 m-auto rounded md:w-[750px] md:h-[290px] w-[98vw] h-[38vw] flex p-8 mb-8">
-                <!-- Left half (Centered) -->
                 <div class="flex-1 mx-auto">
                     <div class="flex mb-4">
                         <div class="flex-1 relative">
@@ -189,7 +174,6 @@ const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === po
                     </div>
                 </div>
 
-                <!-- Right half -->
                 <div class="flex-1 flex flex-col items-end">
                     <div class="mb-4">
                         <form @click.prevent="like(pokemon)">
