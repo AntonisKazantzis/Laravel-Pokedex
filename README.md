@@ -3,10 +3,16 @@
 ## Overview
 Pokedex Inertia is a web application built with Vue.js and PHP Laravel, providing a modern and responsive interface for exploring Pokémon data sourced from the [PokeAPI](https://pokeapi.co/). Key features include:
 
-- Real-time updates of Pokémon data every Sunday at 12:00.
-- Full responsiveness and modern design.
-- Pagination, theme switch, dynamic error page, and notifications.
-- Like/unlike Pokémon, search, and filter functionalities.
+- Schedule
+- Pokemon Page
+- Fully Responsive
+- Modern Design
+- Theme Switcher
+- Custom Error Page
+- Notifications
+- Admin Panel
+- Filters
+- Pagination
 
 ## Installation
 Ensure you have [Git](https://git-scm.com/), [Composer](https://getcomposer.org/), and [Node.js](https://nodejs.org/) installed.
@@ -47,14 +53,14 @@ Ensure you have [Git](https://git-scm.com/), [Composer](https://getcomposer.org/
      - Password: password
 
 ## Dependencies
-- Laravel 10.10
-- Laravel Pint 1.0
-- Laravel Jetstream 4.2
-- Inertia.js 0.6.8
-- Inertia.js Vue3 1.0.0
-- Tabler Icons-Vue 2.46.0
-- Date-Fns 3.3.1
-- Lodash 4.17.21
+- Laravel: 10.10
+- Laravel Pint: 1.0
+- Laravel Jetstream: 4.2
+- Inertia.js: 0.6.8
+- Inertia.js Vue3: 1.0.0
+- Tabler Icons-Vue: 2.46.0
+- Date-Fns: 3.3.1
+- Lodash: 4.17.21
 
 ## Tags
 #VueJS #Laravel #Tailwind #Jetstream #FullStackDevelopment #PokemonAPI #InertiaJS
