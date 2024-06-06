@@ -54,7 +54,7 @@ const damageColor = (baseStat) => {
 
 const like = (pokemon) => router.post(route("pokemons.like", { pokemon: pokemon }), {
     preserveScroll: true,
-    }
+}
 );
 
 const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === pokemonId);
@@ -65,47 +65,51 @@ const uniqueTypes = computed(() => [...new Set(splitAndFlatten(props.types))]);
 const uniqueAbilities = computed(() => [...new Set(splitAndFlatten(props.abilities))]);
 const uniqueEggGroups = computed(() => [...new Set(splitAndFlatten(props.egg_groups))]);
 
-watch(
-    [
-        search,
-        selectedAbility,
-        selectedType,
-        selectedEggGroup,
-        selectedGrowthRate,
-        selectedSort,
-    ],
-    function () {
-        router.get(
-            route("pokemons.index"),
-            {
-                search: search.value,
-                type: selectedType.value,
-                ability: selectedAbility.value,
-                egg_group: selectedEggGroup.value,
-                growth_rate: selectedGrowthRate.value,
-                sort: selectedSort.value,
-            },
-            { preserveState: true, replace: true, preserveScroll: true }
-        );
-    }
-);
+watch([
+    search,
+    selectedAbility,
+    selectedType,
+    selectedEggGroup,
+    selectedGrowthRate,
+    selectedSort,
+], function () {
+    const params = {
+        search: search.value || undefined,
+        type: selectedType.value || undefined,
+        ability: selectedAbility.value || undefined,
+        egg_group: selectedEggGroup.value || undefined,
+        growth_rate: selectedGrowthRate.value || undefined,
+        sort: selectedSort.value || undefined,
+    };
+
+    router.get(
+        route("pokemons.index"),
+        params,
+        { preserveState: true, replace: true, preserveScroll: true }
+    );
+});
 </script>
 
 <template>
     <AppLayout title="Pokemons">
         <template #header>
             <div class="flex flex-col sm:flex-row justify-between text-white dark:text-black gap-6">
-                <h2 class="font-semibold text-xl flex-grow flex items-center justify-start mb-4 sm:mb-0 sm:ml-[11px] ml-0 mr-4">
+                <h2
+                    class="font-semibold text-xl flex-grow flex items-center justify-start mb-4 sm:mb-0 sm:ml-[11px] ml-0 mr-4">
                     Pokemons
                 </h2>
 
                 <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-4 flex-wrap">
                     <div>
-                        <input v-model="search" type="text" class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500" placeholder="Search pokemons..." />
+                        <input v-model="search" type="text"
+                            class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500"
+                            placeholder="Search pokemons..." />
                     </div>
 
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap sm:ml-0 md:ml-0 lg:ml-0 xl:ml-0 2xl:ml-24 ml-0">
-                        <select v-model="selectedType" class="mt-4 sm:mt-0 border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
+                    <div
+                        class="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap sm:ml-0 md:ml-0 lg:ml-0 xl:ml-0 2xl:ml-24 ml-0">
+                        <select v-model="selectedType"
+                            class="mt-4 sm:mt-0 border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
                             <option value="" disabled selected hidden>
                                 Type
                             </option>
@@ -117,7 +121,8 @@ watch(
                             </template>
                         </select>
 
-                        <select v-model="selectedAbility" class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
+                        <select v-model="selectedAbility"
+                            class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
                             <option value="" disabled selected hidden>
                                 Ability
                             </option>
@@ -129,7 +134,8 @@ watch(
                             </template>
                         </select>
 
-                        <select v-model="selectedEggGroup" class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
+                        <select v-model="selectedEggGroup"
+                            class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
                             <option value="" disabled selected hidden>
                                 Egg Group
                             </option>
@@ -141,7 +147,8 @@ watch(
                             </template>
                         </select>
 
-                        <select v-model="selectedGrowthRate" class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
+                        <select v-model="selectedGrowthRate"
+                            class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
                             <option value="" disabled selected hidden>
                                 Growth Rate
                             </option>
@@ -151,7 +158,8 @@ watch(
                             </option>
                         </select>
 
-                        <select v-model="selectedSort" class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
+                        <select v-model="selectedSort"
+                            class="border text-black capitalize border-white dark:border-black hover:dark:border-indigo-500 hover:border-indigo-500 rounded-md w-full md:w-56 lg:w-56 xl:w-56 2xl:w-40 sm:w-56 h-12 focus:outline-none focus:border-indigo-500">
                             <option value="" disabled selected hidden>
                                 Sorting
                             </option>
@@ -162,8 +170,10 @@ watch(
                         </select>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap sm:ml-0 md:ml-0 lg:ml-0 xl:ml-0 2xl:ml-24 ml-0">
-                        <button type="submit" :onClick="resetFilters" class="mt-4 sm:mt-0 border dark:border focus:dark:border-2 hover:border-indigo-500 bg-white focus:border-2 dark:border-black dark:hover:border-indigo-500 border-white text-black rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500 focus:dark:border-indigo-500">
+                    <div
+                        class="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap sm:ml-0 md:ml-0 lg:ml-0 xl:ml-0 2xl:ml-24 ml-0">
+                        <button type="submit" :onClick="resetFilters"
+                            class="mt-4 sm:mt-0 border dark:border focus:dark:border-2 hover:border-indigo-500 bg-white focus:border-2 dark:border-black dark:hover:border-indigo-500 border-white text-black rounded-md w-full sm:w-56 h-12 focus:outline-none focus:border-indigo-500 focus:dark:border-indigo-500">
                             Reset Filters
                         </button>
                     </div>
@@ -172,38 +182,46 @@ watch(
         </template>
 
         <div v-if="pokemons.data && pokemons.data.length" class="pt-16 pb-8 border-t sm:hidden">
-            <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id" class="shadow-md border-2 m-auto rounded overflow-hidden mb-8">
+            <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id"
+                class="shadow-md border-2 m-auto rounded overflow-hidden mb-8">
                 <div class="flex flex-col items-center p-8">
                     <div>
                         <div class="flex">
                             <div class="flex-1 mb-[2vw] relative">
-                                <h6 class="bg-[#343541] dark:bg-white dark:text-black text-white mr-[2vw] rounded-full z-10 w-[7vw] h-[7vw] flex items-center justify-center text-[3vw] font-bold absolute left-0 top-0">
+                                <h6
+                                    class="bg-[#343541] dark:bg-white dark:text-black text-white mr-[2vw] rounded-full z-10 w-[7vw] h-[7vw] flex items-center justify-center text-[3vw] font-bold absolute left-0 top-0">
                                     {{ (pokemon.height / 10).toFixed(1) }}m
                                 </h6>
                             </div>
 
                             <div class="flex-1 relative">
-                                <h6 class="bg-[#343541] dark:bg-white dark:text-black text-white rounded-full -mr-[2vw] z-10 w-[7vw] h-[7vw] flex items-center justify-center text-[3vw] font-bold absolute right-0 top-0">
+                                <h6
+                                    class="bg-[#343541] dark:bg-white dark:text-black text-white rounded-full -mr-[2vw] z-10 w-[7vw] h-[7vw] flex items-center justify-center text-[3vw] font-bold absolute right-0 top-0">
                                     {{ (pokemon.weight / 10).toFixed(1) }}kg
                                 </h6>
                             </div>
                         </div>
 
-                        <Link :href="route('pokemons.show', { pokemon: pokemon.name })" :active="route().current('pokemons.show')" class="flex flex-col items-center">
-                            <div class="relative w-[17vw] h-[17vw]">
-                                <img :src="pokemon.sprite_1_path" class="relative inset-0 m-auto drop-shadow-xl z-10 w-full h-full object-contain" />
-                            </div>
+                        <Link :href="route('pokemons.show', { pokemon: pokemon.name })"
+                            :active="route().current('pokemons.show')" class="flex flex-col items-center">
+                        <div class="relative w-[17vw] h-[17vw]">
+                            <img :src="pokemon.sprite_1_path"
+                                class="relative inset-0 m-auto drop-shadow-xl z-10 w-full h-full object-contain" />
+                        </div>
 
-                            <div class="relative text-[#e2e2e1] dark:text-[#e2e2e1] text-[18vw] font-[600] z-0 w-full mx-auto mt-[-40%]">
-                                #{{ pokemon.pokemon_id.toString().padStart(4, "0") }}
-                            </div>
+                        <div
+                            class="relative text-[#e2e2e1] dark:text-[#e2e2e1] text-[18vw] font-[600] z-0 w-full mx-auto mt-[-40%]">
+                            #{{ pokemon.pokemon_id.toString().padStart(4, "0") }}
+                        </div>
                         </Link>
                     </div>
 
                     <div class="text-center mt-[-32px]">
                         <div class="mt-8 flex justify-center">
                             <form @click.prevent="like(pokemon)">
-                                <IconHeartFilled :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.id) }" :size="['8vw']" />
+                                <IconHeartFilled
+                                    :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.id) }"
+                                    :size="['32']" />
                             </form>
                         </div>
 
@@ -222,24 +240,31 @@ watch(
                         </div>
 
                         <div class="text-[4vw] capitalize font-[400px]">
-                            <span v-for="(ability, index) in pokemon.abilities" :key="index" :class="ability" class="capitalize pr-1 dark:text-black text-white">
+                            <span v-for="(ability, index) in pokemon.abilities" :key="index" :class="ability"
+                                class="capitalize pr-1 dark:text-black text-white">
                                 {{ ability }}
                             </span>
                         </div>
 
                         <div class="mt-8 flex flex-col items-center justify-center">
                             <table class="flex flex-col items-center justify-center capitalize" cellspacing="0">
-                                <tbody v-for="(stat, index) in pokemon.stats" :key="index" class="flex items-center justify-center">
-                                    <tr class="w-[35vw] text-[4vw] font-bold pr-[4vw] flex justify-end dark:text-black text-white">
+                                <tbody v-for="(stat, index) in pokemon.stats" :key="index"
+                                    class="flex items-center justify-center">
+                                    <tr
+                                        class="w-[35vw] text-[4vw] font-bold pr-[4vw] flex justify-end dark:text-black text-white">
                                         {{ stat.name }}
                                     </tr>
 
-                                    <td class="w-[18vw] font-[500px] text-[4vw] flex justify-end pr-[4vw] dark:text-black text-white">
+                                    <td
+                                        class="w-[18vw] font-[500px] text-[4vw] flex justify-end pr-[4vw] dark:text-black text-white">
                                         {{ stat.base_stat }}
                                     </td>
 
-                                    <td class="w-[30vw] h-[3vw] mt-[3px] bg-[#e2e2e1] dark:bg-[#e2e2e1] mb-[2px] rounded-[3px] overflow-hidden">
-                                        <div :class="damageColor(stat.base_stat)" class="h-full transition-width duration-500 rounded-[3px]" :style="{ width: `${(stat.base_stat / 200) * 100}%` }"></div>
+                                    <td
+                                        class="w-[30vw] h-[3vw] mt-[3px] bg-[#e2e2e1] dark:bg-[#e2e2e1] mb-[2px] rounded-[3px] overflow-hidden">
+                                        <div :class="damageColor(stat.base_stat)"
+                                            class="h-full transition-width duration-500 rounded-[3px]"
+                                            :style="{ width: `${(stat.base_stat / 200) * 100}%` }"></div>
                                     </td>
                                 </tbody>
                             </table>
@@ -258,30 +283,35 @@ watch(
         </div>
 
         <div v-if="pokemons.data && pokemons.data.length" class="pt-16 pb-8 border-t hidden sm:block">
-            <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id" class="shadow-md border-2 m-auto rounded md:w-[750px] md:h-[290px] w-[98vw] h-[38vw] flex p-8 mb-8">
+            <div v-for="pokemon in pokemons.data" :key="pokemon.pokemon_id"
+                class="shadow-md border-2 m-auto rounded md:w-[750px] md:h-[290px] w-[98vw] h-[38vw] flex p-8 mb-8">
                 <div class="flex-1 mx-auto">
                     <div class="flex mb-4">
                         <div class="flex-1 relative">
-                            <h6 class="bg-[#343541] dark:bg-white dark:text-black text-white rounded-full z-10 w-[5vw] h-[5vw] md:w-[40px] md:h-[40px] flex items-center justify-center md:text-[13px] text-[1.7vw] font-bold absolute float-left top-0 left-0">
+                            <h6
+                                class="bg-[#343541] dark:bg-white dark:text-black text-white rounded-full z-10 w-[5vw] h-[5vw] md:w-[40px] md:h-[40px] flex items-center justify-center md:text-[13px] text-[1.7vw] font-bold absolute float-left top-0 left-0">
                                 {{ (pokemon.height / 10).toFixed(1) }}m
                             </h6>
                         </div>
 
                         <div class="flex-1 relative">
-                            <h6 class="bg-[#343541] dark:bg-white dark:text-black text-white rounded-full z-10 w-[5vw] h-[5vw] md:w-[40px] md:h-[40px] flex items-center justify-center md:text-[13px] text-[1.7vw] font-bold absolute top-0 right-0">
+                            <h6
+                                class="bg-[#343541] dark:bg-white dark:text-black text-white rounded-full z-10 w-[5vw] h-[5vw] md:w-[40px] md:h-[40px] flex items-center justify-center md:text-[13px] text-[1.7vw] font-bold absolute top-0 right-0">
                                 {{ (pokemon.weight / 10).toFixed(1) }}kg
                             </h6>
                         </div>
                     </div>
 
-                    <Link :href="route('pokemons.show', { pokemon: pokemon.name })" :active="route().current('pokemons.show')" class="flex flex-col items-center">
-                        <div class="relative md:w-[100px] md:h-[100px] w-[13vw] h-[13vw]">
-                            <img :src="pokemon.sprite_1_path" class="relative drop-shadow-xl z-10 mx-auto" />
-                        </div>
+                    <Link :href="route('pokemons.show', { pokemon: pokemon.name })"
+                        :active="route().current('pokemons.show')" class="flex flex-col items-center">
+                    <div class="relative md:w-[100px] md:h-[100px] w-[13vw] h-[13vw]">
+                        <img :src="pokemon.sprite_1_path" class="relative drop-shadow-xl z-10 mx-auto" />
+                    </div>
 
-                        <div class="relative text-[#e2e2e1] dark:text-[#e2e2e1] md:text-[100px] text-[13.2vw] font-[600] z-0 mx-auto md:mt-[-125px] mt-[-16.5vw]">
-                            #{{ pokemon.pokemon_id.toString().padStart(4, "0") }}
-                        </div>
+                    <div
+                        class="relative text-[#e2e2e1] dark:text-[#e2e2e1] md:text-[100px] text-[13.2vw] font-[600] z-0 mx-auto md:mt-[-125px] mt-[-16.5vw]">
+                        #{{ pokemon.pokemon_id.toString().padStart(4, "0") }}
+                    </div>
                     </Link>
 
                     <div class="text-center mt-[-32px]">
@@ -300,7 +330,8 @@ watch(
                         </div>
 
                         <div class="md:text-[14px] text-[1.8vw] capitalize font-[400px]">
-                            <span v-for="(ability, index) in pokemon.abilities" :key="index" :class="ability" class="capitalize pr-1 dark:text-black text-white">
+                            <span v-for="(ability, index) in pokemon.abilities" :key="index" :class="ability"
+                                class="capitalize pr-1 dark:text-black text-white">
                                 {{ ability }}
                             </span>
                         </div>
@@ -310,22 +341,29 @@ watch(
                 <div class="flex-1 flex flex-col items-end">
                     <div class="mb-4">
                         <form @click.prevent="like(pokemon)">
-                            <IconHeartFilled :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.id) }" :size="['8vw']" />
+                            <IconHeartFilled
+                                :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.id) }"
+                                :size="['32']" />
                         </form>
                     </div>
 
                     <table class="capitalize md:ml-[-20px] ml-[-4vw]" cellspacing="0">
                         <tbody v-for="(stat, index) in pokemon.stats" :key="index" class="flex">
-                            <tr class="md:w-[145px] w-[20vw] md:text-[13px] text-[1.7vw] font-bold md:pr-[30px] pr-[4vw] flex justify-end dark:text-black text-white">
+                            <tr
+                                class="md:w-[145px] w-[20vw] md:text-[13px] text-[1.7vw] font-bold md:pr-[30px] pr-[4vw] flex justify-end dark:text-black text-white">
                                 {{ stat.name }}
                             </tr>
 
-                            <td class="md:w-[60px] w-[8vw] font-[500px] md:text-[13px] text-[1.7vw] flex justify-end md:pr-[20px] pr-[3vw] dark:text-black text-white">
+                            <td
+                                class="md:w-[60px] w-[8vw] font-[500px] md:text-[13px] text-[1.7vw] flex justify-end md:pr-[20px] pr-[3vw] dark:text-black text-white">
                                 {{ stat.base_stat }}
                             </td>
 
-                            <td class="md:w-[190px] md:h-[12px] w-[25vw] h-[1.6vw] mt-[3px] bg-[#e2e2e1] dark:bg-[#e2e2e1] mb-[10px] rounded-[3px] overflow-hidden">
-                                <div :class="damageColor(stat.base_stat)" class="h-full transition-width duration-500 rounded-[3px]" :style="{ width: `${(stat.base_stat / 200) * 100}%` }"></div>
+                            <td
+                                class="md:w-[190px] md:h-[12px] w-[25vw] h-[1.6vw] mt-[3px] bg-[#e2e2e1] dark:bg-[#e2e2e1] mb-[10px] rounded-[3px] overflow-hidden">
+                                <div :class="damageColor(stat.base_stat)"
+                                    class="h-full transition-width duration-500 rounded-[3px]"
+                                    :style="{ width: `${(stat.base_stat / 200) * 100}%` }"></div>
                             </td>
                         </tbody>
                     </table>
