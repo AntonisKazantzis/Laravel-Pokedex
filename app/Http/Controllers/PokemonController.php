@@ -21,37 +21,27 @@ class PokemonController extends Controller
         $egg_group = Request::input('egg_group');
         $sort = Request::input('sort');
 
-        $pokemons = Pokemon::query()->when($search, function ($q, $search) {
-            $q->where('name', 'like', '%'.$search.'%');
-        })
-            ->when($ability, function ($q, $ability) {
-                $q->where('abilities', 'like', '%'.$ability.'%');
-            })
-            ->when($type, function ($q, $type) {
-                $q->where('types', 'like', '%'.$type.'%');
-            })
-            ->when($growth_rate, function ($q, $growth_rate) {
-                $q->where('growth_rate', $growth_rate);
-            })
-            ->when($egg_group, function ($q, $egg_group) {
-                $q->where('egg_groups', 'like', '%'.$egg_group.'%');
-            })
-            ->when($sort, function ($q, $sort) {
+        $query = Pokemon::query()
+            ->when($search, fn($q) => $q->where('name', 'like', '%' . $search . '%'))
+            ->when($ability, fn($q) => $q->where('abilities', 'like', '%' . $ability . '%'))
+            ->when($type, fn($q) => $q->where('types', 'like', '%' . $type . '%'))
+            ->when($growth_rate, fn($q) => $q->where('growth_rate', $growth_rate))
+            ->when($egg_group, fn($q) => $q->where('egg_groups', 'like', '%' . $egg_group . '%'))
+            ->when($sort, function ($q) use ($sort) {
                 [$column, $order] = explode(':', $sort);
                 $q->orderBy($column, $order);
-            })->orderBy('created_at', 'asc')->paginate(10)->withQueryString();
+            });
+
+        $pokemons = $query->orderBy('created_at', 'asc')->paginate(10)->withQueryString();
 
         $this->transformPokemons($pokemons);
 
-        $types = Pokemon::distinct()->pluck('types')->toArray();
-        $abilities = Pokemon::distinct()->pluck('abilities')->toArray();
-        $egg_groups = Pokemon::distinct()->pluck('egg_groups')->toArray();
+        $types = Pokemon::distinct()->pluck('types')->map('json_decode')->toArray();
+        $abilities = Pokemon::distinct()->pluck('abilities')->map('json_decode')->toArray();
+        $egg_groups = Pokemon::distinct()->pluck('egg_groups')->map('json_decode')->toArray();
         $growth_rates = Pokemon::distinct()->pluck('growth_rate')->toArray();
-        $pivot = DB::table('liked_pokemons')->where('user_id', auth()->id())->get();
 
-        $types = array_map('json_decode', $types);
-        $abilities = array_map('json_decode', $abilities);
-        $egg_groups = array_map('json_decode', $egg_groups);
+        $pivot = DB::table('liked_pokemons')->where('user_id', auth()->id())->get();
 
         return Inertia::render('Pokemon/Index', compact('pokemons', 'types', 'search', 'abilities', 'egg_groups', 'growth_rates', 'sort', 'pivot'));
     }
@@ -91,7 +81,6 @@ class PokemonController extends Controller
             $type = 'flash-success';
         }
 
-        // Redirect back with flash message
         return to_route('pokemons.index')->with(['message' => $message, 'type' => $type]);
     }
 
