@@ -1,7 +1,7 @@
-# Pokedex Inertia
+# Laravel Pokedex
 
 ## Overview
-Pokedex Inertia is a web application built with Vue.js and PHP Laravel, providing a modern and responsive interface for exploring Pokémon data sourced from the [PokeAPI](https://pokeapi.co/). Key features include:
+Laravel Pokedex is a web application built with Vue.js and PHP Laravel, providing a modern and responsive interface for exploring Pokémon data sourced from the [PokeAPI](https://pokeapi.co/). Key features include:
 
 - Schedule
 - Pokemon Page
