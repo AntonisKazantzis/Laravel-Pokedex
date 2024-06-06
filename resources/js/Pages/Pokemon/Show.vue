@@ -1,6 +1,5 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { defineProps } from "vue";
 import { Link, router } from "@inertiajs/vue3";
 import FormatNumber from "@/Components/FormatNumber.vue";
 import DiffForHumans from "@/Components/DiffForHumans.vue";
@@ -32,7 +31,7 @@ const damageColor = (baseStat) => {
 
 const like = (pokemon) => router.post(route("pokemons.like", { pokemon: pokemon }), {
     preserveScroll: true,
-    }
+}
 );
 
 const isLiked = (pokemonId) => props.pivot.some((item) => item.pokemon_id === pokemonId);
@@ -66,7 +65,9 @@ const lastKey = Object.keys(props.evolution_chain).pop();
 
                     <div class="mt-4 sm:mt-0">
                         <form @click.prevent="like(pokemon)">
-                            <IconHeartFilled :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.pokemon_id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.pokemon_id) }" :size="['8vw']" />
+                            <IconHeartFilled
+                                :class="{ 'text-red-500 hover:text-gray-400': isLiked(pokemon.pokemon_id), 'text-gray-400 hover:text-red-500': !isLiked(pokemon.pokemon_id) }"
+                                :size="['32']" />
                         </form>
                     </div>
                 </div>
@@ -102,7 +103,8 @@ const lastKey = Object.keys(props.evolution_chain).pop();
 
                     <div class="capitalize font-[400px] dark:text-black text-white">
                         <span>Abilities:</span>
-                        <span v-for="(ability, index) in pokemon.abilities" :key="index" :class="ability" class="capitalize text-base dark:text-black text-white">
+                        <span v-for="(ability, index) in pokemon.abilities" :key="index" :class="ability"
+                            class="capitalize text-base dark:text-black text-white">
                             &nbsp;{{ ability }}
                         </span>
                     </div>
@@ -110,18 +112,21 @@ const lastKey = Object.keys(props.evolution_chain).pop();
                     <div class="flex-1 flex flex-col items-center sm:items-end">
                         <table class="text-[16px] capitalize  sm:-mt-[145px] mt-[45px]" cellspacing="0">
                             <tbody v-for="(stat, index) in pokemon.stats" :key="index" class="flex">
-                                <tr class="sm:w-[145px] w-[100px] text-[13px] -mt-[2px] font-bold sm:pr-[30px] -pr-[15px] flex justify-end dark:text-black text-white">
+                                <tr
+                                    class="sm:w-[145px] w-[100px] text-[13px] -mt-[2px] font-bold sm:pr-[30px] -pr-[15px] flex justify-end dark:text-black text-white">
                                     {{ stat.name }}
                                 </tr>
 
-                                <td class="sm:w-[60px] w-[12vw] font-[500px] -mt-[2px] text-[13px] flex justify-end sm:pr-[20px] pr-[3vw] dark:text-black text-white">
+                                <td
+                                    class="sm:w-[60px] w-[12vw] font-[500px] -mt-[2px] text-[13px] flex justify-end sm:pr-[20px] pr-[3vw] dark:text-black text-white">
                                     {{ stat.base_stat }}
                                 </td>
 
-                                <td class="sm:w-[190px] max-w-[190px] w-[40vw] h-[12px] mt-[3px] bg-[#e2e2e1] dark:border dark:border-black dark:bg-[#e2e2e1] mb-[10px] rounded-[3px] overflow-hidden">
-                                    <div
-                                        :class="damageColor(stat.base_stat)" class="h-full transition-width duration-500 rounded-[3px]"
-                                        :style="{ width: `${(stat.base_stat / 200) * 100}%`}">
+                                <td
+                                    class="sm:w-[190px] max-w-[190px] w-[40vw] h-[12px] mt-[3px] bg-[#e2e2e1] dark:border dark:border-black dark:bg-[#e2e2e1] mb-[10px] rounded-[3px] overflow-hidden">
+                                    <div :class="damageColor(stat.base_stat)"
+                                        class="h-full transition-width duration-500 rounded-[3px]"
+                                        :style="{ width: `${(stat.base_stat / 200) * 100}%` }">
                                     </div>
                                 </td>
                             </tbody>
@@ -130,15 +135,18 @@ const lastKey = Object.keys(props.evolution_chain).pop();
 
                     <div class="flex sm:flex-row flex-col sm:mt-40 mt-8 items-center sm:items-end">
                         <template v-for="(evolution, index) in props.evolution_chain" :key="index">
-                            <Link :href="route('pokemons.show', { pokemon: evolution })" :active="route().current('pokemons.show')">
-                                <img class="h-32 w-32 rounded sm:mx-8 mx-[2vw]"
-                                    :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index}.svg`" />
+                            <Link :href="route('pokemons.show', { pokemon: evolution })"
+                                :active="route().current('pokemons.show')">
+                            <img class="h-32 w-32 rounded sm:mx-8 mx-[2vw]"
+                                :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index}.svg`" />
                             </Link>
 
                             <template v-if="index !== evolution_chain_length - 1">
                                 <template v-if="index < lastKey">
-                                    <div class="flex items-center sm:mx-0 mx-14 sm:my-auto my-6 bg-[#292a35] dark:bg-[#e2e2e1] w-10 h-10 rounded-full">
-                                        <span class="flex mx-auto justify-center text-[30px] dark:text-black text-white rotate-90 sm:rotate-0">
+                                    <div
+                                        class="flex items-center sm:mx-0 mx-14 sm:my-auto my-6 bg-[#292a35] dark:bg-[#e2e2e1] w-10 h-10 rounded-full">
+                                        <span
+                                            class="flex mx-auto justify-center text-[30px] dark:text-black text-white rotate-90 sm:rotate-0">
                                             >
                                         </span>
                                     </div>
@@ -150,7 +158,8 @@ const lastKey = Object.keys(props.evolution_chain).pop();
 
                 <hr class="w-full border-t border-white dark:border-gray-900 my-2" />
 
-                <div class="flex flex-col sm:flex-row items-center justify-between mx-auto w-full dark:text-black text-white">
+                <div
+                    class="flex flex-col sm:flex-row items-center justify-between mx-auto w-full dark:text-black text-white">
                     <div class="flex items-center space-x-4 mb-4 sm:mb-0">
                         <span class="font-semibold flex items-center space-x-1">
                             <IconHeart :size="18" />
@@ -288,4 +297,3 @@ const lastKey = Object.keys(props.evolution_chain).pop();
     color: #66625c;
 }
 </style>
-
